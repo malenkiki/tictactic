@@ -4,7 +4,21 @@ namespace Malenki;
 
 class TicTacTic
 {
+    protected static $obj_instance = null;
+
     protected $arr_timers = array();
+
+
+
+    public static function getInstance()
+    {
+        if(is_null(self::$obj_instance))
+        {
+            self::$obj_instance = new self();
+        }
+
+        return self::$obj_instance;
+    }
 
 
 
@@ -58,5 +72,24 @@ class TicTacTic
         }
 
         return $this->arr_timers[$name] >= 0;
+    }
+
+
+
+    public function get($name)
+    {
+        if(!$this->has($name))
+        {
+            throw new \Exception(_('This timer does not exist!'));
+        }
+
+        return $this->arr_timers[$name];
+    }
+
+
+
+    public function getAll()
+    {
+        return $this->arr_timers;
     }
 }
