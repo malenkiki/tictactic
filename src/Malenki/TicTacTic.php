@@ -24,14 +24,35 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 namespace Malenki;
 
+
+/**
+ * Simple singleton class to have time counters into your projects.
+ *
+ * @author Michel Petit <petit.michel@gmail.com>
+ */
 class TicTacTic implements \Countable
 {
+    /**
+     * Object instance of TicTacTic goes here.
+     *
+     * @var object
+     */
     protected static $obj_instance = null;
 
+    /**
+     * Created timers go here.
+     *
+     * @var array
+     */
     protected $arr_timers = array();
 
 
 
+    /**
+     * To work like a singleton should work…
+     *
+     * @return object
+     */
     public static function getInstance()
     {
         if(is_null(self::$obj_instance))
@@ -44,6 +65,12 @@ class TicTacTic implements \Countable
 
 
 
+    /**
+     * Checks whether time foo is already defined.
+     *
+     * @param string $name Timer's name
+     * @return boolean
+     */
     public function has($name)
     {
         return array_key_exists($name, $this->arr_timers);
@@ -51,6 +78,11 @@ class TicTacTic implements \Countable
 
 
 
+    /**
+     * Implements abstract method form Countable interface.
+     *
+     * @return integer
+     */
     public function count()
     {
         return count($this->arr_timers);
@@ -58,6 +90,13 @@ class TicTacTic implements \Countable
 
 
 
+    /**
+     * Start a new timer giving its name.
+     *
+     * @param string $name Timer name.
+     * @return void
+     * @throws Exception If timer is already defined
+     */
     public function start($name)
     {
         if($this->has($name))
@@ -72,6 +111,13 @@ class TicTacTic implements \Countable
 
 
 
+    /**
+     * Finishes given timer.
+     *
+     * @param string $name Timer name.
+     * @return void
+     * @throws Exception If timer is not defined
+     */
     public function finish($name)
     {
         if($this->has($name))
@@ -86,6 +132,13 @@ class TicTacTic implements \Countable
 
 
 
+    /**
+     * Checks whether the given timer is done.
+     *
+     * @param string $name Timer name.
+     * @return boolean
+     * @throws Exception If timer is not defined
+     */
     public function done($name)
     {
         if(!$this->has($name))
@@ -98,6 +151,13 @@ class TicTacTic implements \Countable
 
 
 
+    /**
+     * Gets result for given timer.
+     *
+     * @param string $name Timer name.
+     * @return float
+     * @throws Exception If timer is not defined
+     */
     public function get($name)
     {
         if(!$this->has($name))
@@ -110,8 +170,23 @@ class TicTacTic implements \Countable
 
 
 
+    /**
+     * Gets all done timers into an array indexed with their names.
+     *
+     * @return array
+     */
     public function getAll()
     {
-        return $this->arr_timers;
+        $arr_out = array();
+
+        foreach($this->arr_timers as $name => $value)
+        {
+            if($this->done($name))
+            {
+                $arr_out[$name] = $value;
+            }
+        }
+
+        return $arr_out;
     }
 }
