@@ -24,7 +24,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 namespace Malenki;
 
-class TicTacTic
+class TicTacTic implements \Countable
 {
     protected static $obj_instance = null;
 
