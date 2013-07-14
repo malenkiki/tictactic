@@ -29,7 +29,7 @@ $t->start('foo');
 echo "\n";
 echo $t->done('foo') ? 'FOO done' : 'FOO is running';
 echo "\n";
-sleep(4);
+sleep(3);
 
 $t->finish('foo');
 //$t->finish('thing'); // if uncommented, should throw exception
@@ -46,12 +46,28 @@ sleep(2);
 $t->finish('bar');
 
 
+$t->start('something');
+
+sleep(1);
+
+$t->finish('something');
+
+
+
 echo "\n";
 printf('%d timers:', count($t));
 echo "\n";
 echo $t->get('foo');
 echo "\n";
 echo $t->get('bar');
+echo "\n";
+echo $t->get('something');
+echo "\n";
+printf('Averages:', count($t));
+echo "\n";
+echo $t->average();
+echo "\n";
+echo $t->average(array('foo', 'something')); // for two of them only
 echo "\n";
 echo "\n";
 

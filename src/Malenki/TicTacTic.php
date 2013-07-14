@@ -189,4 +189,39 @@ class TicTacTic implements \Countable
 
         return $arr_out;
     }
+
+
+
+    /**
+     * Get average value.
+     *
+     * @param array $arr An optional array of timer’s names. If not given, compute avrage with all done timers.
+     * @return float
+     * @throws Exception If at least one timer does not exist
+     */
+    public function average(array $arr = array())
+    {
+        $arr_all = array();
+
+        if(count($arr))
+        {
+            foreach($arr as $name)
+            {
+                if(!$this->has($name))
+                {
+                    throw new \Exception(sprintf('Timer %s does not exist!', $name));
+                }
+                else
+                {
+                    $arr_all[] = $this->get($name);
+                }
+            }
+        }
+        else
+        {
+            $arr_all = $this->getAll();
+        }
+
+        return array_sum($arr_all) / count($arr_all);
+    }
 }
