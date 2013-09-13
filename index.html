@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Tictactic by malenkiki</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Tictactic</h1>
+          <h2>A simple timer for multiple things at once…</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/malenkiki/tictactic/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/malenkiki/tictactic/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/malenkiki/tictactic" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a name="tictactic" class="anchor" href="#tictactic"><span class="octicon octicon-link"></span></a>tictactic</h1>
+
+<p>A simple timer for multiple things at once…</p>
+
+<p>Quick example of use:</p>
+
+<div class="highlight highlight-php"><pre>
+<span class="nv">$t</span> <span class="o">=</span> <span class="nx">\Malenki\TicTacTic</span><span class="o">::</span><span class="na">getInstance</span><span class="p">();</span>
+
+<span class="nv">$t</span><span class="o">-&gt;</span><span class="na">start</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">);</span>
+<span class="nb">sleep</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="nv">$t</span><span class="o">-&gt;</span><span class="na">finish</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">);</span>
+
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$t</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">);</span>
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+
+</pre></div>
+
+<p>Full example (avaible into source files too):</p>
+
+<div class="highlight highlight-php"><pre>
+<span class="k">include</span><span class="p">(</span><span class="s1">'src/Malenki/TicTacTic.php'</span><span class="p">);</span>
+
+<span class="nv">$t</span> <span class="o">=</span> <span class="nx">\Malenki\TicTacTic</span><span class="o">::</span><span class="na">getInstance</span><span class="p">();</span>
+
+<span class="nv">$t</span><span class="o">-&gt;</span><span class="na">start</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">);</span>
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$t</span><span class="o">-&gt;</span><span class="na">done</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span> <span class="o">?</span> <span class="s1">'FOO done'</span> <span class="o">:</span> <span class="s1">'FOO is running'</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="nb">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+
+<span class="nv">$t</span><span class="o">-&gt;</span><span class="na">finish</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">);</span>
+<span class="c1">//$t-&gt;finish('thing'); // if uncommented, should throw exception</span>
+
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$t</span><span class="o">-&gt;</span><span class="na">done</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span> <span class="o">?</span> <span class="s1">'FOO done'</span> <span class="o">:</span> <span class="s1">'FOO is running'</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+
+
+<span class="nv">$t</span><span class="o">-&gt;</span><span class="na">start</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">);</span>
+
+<span class="nb">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+<span class="nv">$t</span><span class="o">-&gt;</span><span class="na">finish</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">);</span>
+
+
+<span class="nv">$t</span><span class="o">-&gt;</span><span class="na">start</span><span class="p">(</span><span class="s1">'something'</span><span class="p">);</span>
+
+<span class="nb">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="nv">$t</span><span class="o">-&gt;</span><span class="na">finish</span><span class="p">(</span><span class="s1">'something'</span><span class="p">);</span>
+
+
+
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="nb">printf</span><span class="p">(</span><span class="s1">'%d timers:'</span><span class="p">,</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$t</span><span class="p">));</span>
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$t</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">);</span>
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$t</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">);</span>
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$t</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'something'</span><span class="p">);</span>
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="nb">printf</span><span class="p">(</span><span class="s1">'Averages:'</span><span class="p">,</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$t</span><span class="p">));</span>
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$t</span><span class="o">-&gt;</span><span class="na">average</span><span class="p">();</span>
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$t</span><span class="o">-&gt;</span><span class="na">average</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'something'</span><span class="p">));</span> <span class="c1">// for two of them only</span>
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+
+</pre></div>
+
+<p>And <em>voilà</em>! Do you need a full doc for that? ;-)</p>
+        </section>
+
+        <footer>
+          Tictactic is maintained by <a href="https://github.com/malenkiki">malenkiki</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
