@@ -24,14 +24,13 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Malenki;
 
-
 /**
  * Simple singleton class to have time counters into your projects.
  *
- * You can define as many as you want. Usage is very simple, you load the 
- * singleton, then you start a counter by given it a name, you can repeat this 
- * last state for all your needs, you can stop them at every time. You can 
- * check whether some of them is finished, you can check if a timer exists. You 
+ * You can define as many as you want. Usage is very simple, you load the
+ * singleton, then you start a counter by given it a name, you can repeat this
+ * last state for all your needs, you can stop them at every time. You can
+ * check whether some of them is finished, you can check if a timer exists. You
  * can even compute average for all timers or just for some of them.
  *
  * Quick examples:
@@ -45,7 +44,7 @@ namespace Malenki;
  *     var_dump($t->has('something')); //returns false
  *     var_dump($t->has('foo')); //returns true
  *     echo $t->get('foo'); // print running time
- * 
+ *
  *
  *
  * @author Michel Petit <petit.michel@gmail.com>
@@ -69,8 +68,6 @@ class TicTacTic implements \Countable
      */
     protected $arr_timers = array();
 
-
-
     /**
      * To work like a singleton should work…
      *
@@ -79,20 +76,17 @@ class TicTacTic implements \Countable
      */
     public static function getInstance()
     {
-        if(is_null(self::$obj_instance))
-        {
+        if (is_null(self::$obj_instance)) {
             self::$obj_instance = new self();
         }
 
         return self::$obj_instance;
     }
 
-
-
     /**
      * Checks whether timer foo is already defined.
      *
-     * @param string $name Timer's name
+     * @param  string  $name Timer's name
      * @version 1.0.0
      * @return boolean
      */
@@ -119,19 +113,16 @@ class TicTacTic implements \Countable
     /**
      * Start a new timer giving its name.
      *
-     * @param string $name Timer name.
+     * @param  string            $name Timer name.
      * @return void
      * @version 1.0.0
      * @throws \RuntimeException If timer is already defined
      */
     public function start($name)
     {
-        if($this->has($name))
-        {
+        if ($this->has($name)) {
             throw new \RuntimeException(_('This timer is already defined!'));
-        }
-        else
-        {
+        } else {
             $this->arr_timers[$name] = -microtime(true);
         }
     }
@@ -141,19 +132,16 @@ class TicTacTic implements \Countable
     /**
      * Finishes given timer.
      *
-     * @param string $name Timer name.
+     * @param  string            $name Timer name.
      * @return void
      * @version 1.0.0
      * @throws \RuntimeException If timer is not defined
      */
     public function finish($name)
     {
-        if($this->has($name))
-        {
+        if ($this->has($name)) {
             $this->arr_timers[$name] += microtime(true);
-        }
-        else
-        {
+        } else {
             throw new \RuntimeException(_('This timer does not exist!'));
         }
     }
@@ -163,22 +151,18 @@ class TicTacTic implements \Countable
 
     /**
      * Finishes all available timers.
-     * 
+     *
      * @access public
      * @version 1.2.0
      * @return void
      */
     public function finishAll()
     {
-        if(count($this->arr_timers))
-        {
-            foreach($this->arr_timers as $k => $t)
-            {
+        if (count($this->arr_timers)) {
+            foreach ($this->arr_timers as $k => $t) {
                 $this->finish($k);
             }
-        }
-        else
-        {
+        } else {
             trigger_error(
                 'No timer defined. Cannot finished not existant timers.',
                 E_USER_NOTICE
@@ -190,15 +174,14 @@ class TicTacTic implements \Countable
     /**
      * Checks whether the given timer is done.
      *
-     * @param string $name Timer name.
+     * @param  string            $name Timer name.
      * @return boolean
      * @version 1.0.0
      * @throws \RuntimeException If timer is not defined
      */
     public function done($name)
     {
-        if(!$this->has($name))
-        {
+        if (!$this->has($name)) {
             throw new \RuntimeException(_('This timer does not exist!'));
         }
 
@@ -210,15 +193,14 @@ class TicTacTic implements \Countable
     /**
      * Gets result for given timer.
      *
-     * @param string $name Timer name.
+     * @param  string            $name Timer name.
      * @return float
      * @version 1.0.0
      * @throws \RuntimeException If timer is not defined
      */
     public function get($name)
     {
-        if(!$this->has($name))
-        {
+        if (!$this->has($name)) {
             throw new \RuntimeException(_('This timer does not exist!'));
         }
 
@@ -237,10 +219,8 @@ class TicTacTic implements \Countable
     {
         $arr_out = array();
 
-        foreach($this->arr_timers as $name => $value)
-        {
-            if($this->done($name))
-            {
+        foreach ($this->arr_timers as $name => $value) {
+            if ($this->done($name)) {
                 $arr_out[$name] = $value;
             }
         }
@@ -253,8 +233,8 @@ class TicTacTic implements \Countable
     /**
      * Get average value.
      *
-     * @param array $arr An optional array of timer’s names. If not given, 
-     * compute average with all done timers.
+     * @param  array                     $arr An optional array of timer’s names. If not given,
+     *                                        compute average with all done timers.
      * @version 1.1.0
      * @return float
      * @throws \InvalidArgumentException If at least one timer does not exist
@@ -263,22 +243,15 @@ class TicTacTic implements \Countable
     {
         $arr_all = array();
 
-        if(count($arr))
-        {
-            foreach($arr as $name)
-            {
-                if(!$this->has($name))
-                {
+        if (count($arr)) {
+            foreach ($arr as $name) {
+                if (!$this->has($name)) {
                     throw new \InvalidArgumentException(sprintf('Timer %s does not exist!', $name));
-                }
-                else
-                {
+                } else {
                     $arr_all[] = $this->get($name);
                 }
             }
-        }
-        else
-        {
+        } else {
             $arr_all = $this->getAll();
         }
 
